@@ -27,7 +27,7 @@ for(let i = 0; i < arr.length; i++) {
         }
         if(cnt === m) {
             ans += 1;
-            continue;
+            break;
         }
     }
 }
@@ -44,7 +44,7 @@ for(let j = 0; j < arr[0].length; j++) {
         }
         if(cnt === m) {
             ans += 1;
-            continue;
+            break;
         }
     }
 }
