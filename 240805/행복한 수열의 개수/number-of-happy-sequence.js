@@ -21,13 +21,13 @@ for(let i = 0; i < arr.length; i++) {
     for(let j = 1; j < arr[0].length; j++) {
         if(prev === arr[i][j]) {
             cnt += 1;
-            if(cnt === m) {
-                ans += 1;
-                continue;
-            }
         } else {
             cnt = 1;
             prev = arr[i][j];
+        }
+        if(cnt === m) {
+            ans += 1;
+            continue;
         }
     }
 }
@@ -38,13 +38,13 @@ for(let j = 0; j < arr[0].length; j++) {
     for(let i = 1; i < arr.length; i++) {
         if(prev === arr[i][j]) {
             cnt += 1;
-            if(cnt === m) {
-                ans += 1;
-                continue;
-            }
         } else {
             cnt = 1;
             prev = arr[i][j];
+        }
+        if(cnt === m) {
+            ans += 1;
+            continue;
         }
     }
 }
