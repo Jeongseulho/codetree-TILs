@@ -1,6 +1,6 @@
 const fs = require('fs');
 const stdin = fs.readFileSync('/dev/stdin').toString().split('\n');
- 
+
 const input = (() => {
     let line = 0;
     return () => stdin[line++];
@@ -8,43 +8,45 @@ const input = (() => {
 
 let [n, m] = input().split(' ').map(Number);
 const arr = [];
-while (n--) {
+for (let i = 0; i < n; i++) {
     const row = input().split(' ').map(Number);
     arr.push(row);
 }
 
 let ans = 0;
 
-for(let i = 0; i < arr.length; i++) {
-    let maxCnt = 1;
+for (let i = 0; i < arr.length; i++) {
     let cnt = 1;
     let prev = arr[i][0];
-    for(let j = 1; j < arr[0].length; j++) {
-        if(prev === arr[i][j]) {
+    for (let j = 1; j < arr[i].length; j++) {
+        if (prev === arr[i][j]) {
             cnt += 1;
         } else {
             cnt = 1;
             prev = arr[i][j];
         }
-        maxCnt = Math.max(cnt, maxCnt);
+        if (cnt === m) {
+            ans += 1;
+            cnt = 0;
+        }
     }
-    if(maxCnt >= m) ans += 1; 
 }
 
-for(let j = 0; j < arr[0].length; j++) {
-    let maxCnt = 1;
+for (let j = 0; j < arr[0].length; j++) {
     let cnt = 1;
     let prev = arr[0][j];
-    for(let i = 1; i < arr.length; i++) {
-        if(prev === arr[i][j]) {
+    for (let i = 1; i < arr.length; i++) {
+        if (prev === arr[i][j]) {
             cnt += 1;
         } else {
             cnt = 1;
             prev = arr[i][j];
         }
-        maxCnt = Math.max(cnt, maxCnt);
+        if (cnt === m) {
+            ans += 1;
+            cnt = 0;
+        }
     }
-    if(maxCnt >= m) ans += 1; 
 }
 
 console.log(ans);
