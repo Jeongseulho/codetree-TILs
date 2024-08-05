@@ -16,6 +16,7 @@ while (n--) {
 let ans = 0;
 
 for(let i = 0; i < arr.length; i++) {
+    let maxCnt = 1;
     let cnt = 1;
     let prev = arr[i][0];
     for(let j = 1; j < arr[0].length; j++) {
@@ -25,14 +26,13 @@ for(let i = 0; i < arr.length; i++) {
             cnt = 1;
             prev = arr[i][j];
         }
-        if(cnt === m) {
-            ans += 1;
-            break;
-        }
+        maxCnt = Math.max(cnt, maxCnt);
     }
+    if(maxCnt >= m) ans += 1; 
 }
 
 for(let j = 0; j < arr[0].length; j++) {
+    let maxCnt = 1;
     let cnt = 1;
     let prev = arr[0][j];
     for(let i = 1; i < arr.length; i++) {
@@ -42,11 +42,9 @@ for(let j = 0; j < arr[0].length; j++) {
             cnt = 1;
             prev = arr[i][j];
         }
-        if(cnt === m) {
-            ans += 1;
-            break;
-        }
+        maxCnt = Math.max(cnt, maxCnt);
     }
+    if(maxCnt >= m) ans += 1; 
 }
 
 console.log(ans);
