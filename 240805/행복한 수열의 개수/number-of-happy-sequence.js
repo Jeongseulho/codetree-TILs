@@ -1,52 +1,44 @@
-const fs = require('fs');
-const stdin = fs.readFileSync('/dev/stdin').toString().split('\n');
+const fs = require("fs");
+const input = fs.readFileSync(0).toString().trim().split('\n');
 
-const input = (() => {
-    let line = 0;
-    return () => stdin[line++];
-})();
+const [n, m] = input[0].split(' ').map(Number);
+const grid = input.slice(1, 1 + n).map(line => line.split(' ').map(Number));
+let seq = Array(n).fill(0);
 
-let [n, m] = input().split(' ').map(Number);
-const arr = [];
+function isHappySequence() {
+    let consecutiveCount = 1, maxCcnt = 1;
+    for (let i = 1; i < n; i++) {
+        if (seq[i - 1] === seq[i]) {
+            consecutiveCount += 1;
+        } else {
+            consecutiveCount = 1;
+        }
+        
+        maxCcnt = Math.max(maxCcnt, consecutiveCount);
+    }
+    
+    return maxCcnt >= m;
+}
+
+
+let numHappy = 0;
+
 for (let i = 0; i < n; i++) {
-    const row = input().split(' ').map(Number);
-    arr.push(row);
-}
+    seq = grid[i].slice();
 
-let ans = 0;
-
-for (let i = 0; i < arr.length; i++) {
-    let cnt = 1;
-    let prev = arr[i][0];
-    for (let j = 1; j < arr[i].length; j++) {
-        if (prev === arr[i][j]) {
-            cnt += 1;
-        } else {
-            cnt = 1;
-            prev = arr[i][j];
-        }
-        if (cnt === m) {
-            ans += 1;
-            cnt = 0;
-        }
+    if (isHappySequence()) {
+        numHappy += 1;
     }
 }
 
-for (let j = 0; j < arr[0].length; j++) {
-    let cnt = 1;
-    let prev = arr[0][j];
-    for (let i = 1; i < arr.length; i++) {
-        if (prev === arr[i][j]) {
-            cnt += 1;
-        } else {
-            cnt = 1;
-            prev = arr[i][j];
-        }
-        if (cnt === m) {
-            ans += 1;
-            cnt = 0;
-        }
+for (let j = 0; j < n; j++) {
+    for (let i = 0; i < n; i++) {
+        seq[i] = grid[i][j];
+    }
+
+    if (isHappySequence()) {
+        numHappy += 1;
     }
 }
 
-console.log(ans);
+console.log(numHappy);
